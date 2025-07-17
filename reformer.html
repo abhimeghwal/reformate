@@ -250,6 +250,23 @@
             box-shadow: 0 7px 20px rgba(114, 9, 183, 0.4);
         }
         
+        .ai-processing {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-processing::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(114, 9, 183, 0.3);
+            z-index: 2;
+            animation: aiScan 3s linear infinite;
+        }
+        
         .platforms {
             display: flex;
             flex-wrap: wrap;
@@ -360,6 +377,7 @@
             align-items: center;
             min-height: 250px;
             background: #fafbff;
+            position: relative;
         }
         
         .preview-placeholder {
@@ -387,14 +405,16 @@
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
             border: 1px solid #e0e7ff;
             border-radius: 8px;
+            width: 100%;
+            height: 100%;
         }
         
-        .instagram-preview { aspect-ratio: 9/16; width: 100%; } /* Reels */
-        .facebook-preview { aspect-ratio: 16/9; width: 100%; } /* Video */
-        .twitter-preview { aspect-ratio: 16/9; width: 100%; } /* Landscape */
-        .linkedin-preview { aspect-ratio: 1/1; width: 100%; } /* Square */
-        .youtube-preview { aspect-ratio: 16/9; width: 100%; } /* Standard */
-        .tiktok-preview { aspect-ratio: 9/16; width: 100%; } /* Vertical */
+        .instagram-preview { aspect-ratio: 9/16; } /* Reels */
+        .facebook-preview { aspect-ratio: 16/9; } /* Video */
+        .twitter-preview { aspect-ratio: 16/9; } /* Landscape */
+        .linkedin-preview { aspect-ratio: 1/1; } /* Square */
+        .youtube-preview { aspect-ratio: 16/9; } /* Standard */
+        .tiktok-preview { aspect-ratio: 9/16; } /* Vertical */
         
         .preview-image {
             width: 100%;
@@ -402,6 +422,30 @@
             object-fit: cover;
             display: none;
             border-radius: 5px;
+            transition: all 1s ease;
+        }
+        
+        .optimized {
+            filter: brightness(1.05) contrast(1.1) saturate(1.2);
+            border: 2px solid var(--secondary);
+        }
+        
+        .ai-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(114, 9, 183, 0.2);
+            z-index: 2;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: aiPulse 1.5s infinite;
         }
         
         .actions {
@@ -630,6 +674,27 @@
             100% { transform: scale(1); }
         }
         
+        @keyframes aiScan {
+            0% { 
+                background: rgba(114, 9, 183, 0.1);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            }
+            50% { 
+                background: rgba(114, 9, 183, 0.3);
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            100% { 
+                background: rgba(114, 9, 183, 0.1);
+                clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+            }
+        }
+        
+        @keyframes aiPulse {
+            0% { background: rgba(114, 9, 183, 0.3); }
+            50% { background: rgba(114, 9, 183, 0.5); }
+            100% { background: rgba(114, 9, 183, 0.3); }
+        }
+        
         .pulse {
             animation: pulse 2s infinite;
         }
@@ -816,6 +881,7 @@
                                     <div>Upload content to see Instagram preview</div>
                                 </div>
                                 <img src="" alt="Instagram Preview" class="preview-image" id="instagramPreview">
+                                <div class="ai-overlay">AI Optimizing...</div>
                             </div>
                         </div>
                     </div>
@@ -834,6 +900,7 @@
                                     <div>Upload content to see Facebook preview</div>
                                 </div>
                                 <img src="" alt="Facebook Preview" class="preview-image" id="facebookPreview">
+                                <div class="ai-overlay">AI Optimizing...</div>
                             </div>
                         </div>
                     </div>
@@ -852,6 +919,7 @@
                                     <div>Upload content to see Twitter preview</div>
                                 </div>
                                 <img src="" alt="Twitter Preview" class="preview-image" id="twitterPreview">
+                                <div class="ai-overlay">AI Optimizing...</div>
                             </div>
                         </div>
                     </div>
@@ -870,6 +938,7 @@
                                     <div>Upload content to see LinkedIn preview</div>
                                 </div>
                                 <img src="" alt="LinkedIn Preview" class="preview-image" id="linkedinPreview">
+                                <div class="ai-overlay">AI Optimizing...</div>
                             </div>
                         </div>
                     </div>
@@ -982,6 +1051,7 @@
                 twitter: document.getElementById('twitterPreview'),
                 linkedin: document.getElementById('linkedinPreview')
             };
+            const aiOverlays = document.querySelectorAll('.ai-overlay');
             const optimizeBtn = document.getElementById('optimizeBtn');
             const downloadBtn = document.getElementById('downloadBtn');
             const publishBtn = document.getElementById('publishBtn');
@@ -991,6 +1061,7 @@
             
             let uploadedFile = null;
             let isImage = false;
+            let isOptimized = false;
             
             // Platform selection
             platforms.forEach(platform => {
@@ -1042,6 +1113,7 @@
                 
                 uploadedFile = file;
                 isImage = file.type.match('image.*');
+                isOptimized = false; // Reset optimization state
                 
                 // Show file name
                 uploadArea.querySelector('.upload-text').textContent = file.name;
@@ -1067,6 +1139,9 @@
                                 previews[key].src = e.target.result;
                                 previews[key].style.display = 'block';
                                 previews[key].parentNode.querySelector('.preview-placeholder').style.display = 'none';
+                                
+                                // Remove optimization if re-uploading
+                                previews[key].classList.remove('optimized');
                             }
                             reader.readAsDataURL(file);
                         }
@@ -1132,21 +1207,49 @@
             
             // Button actions
             optimizeBtn.addEventListener('click', () => {
+                if (!uploadedFile) {
+                    showNotification('Please upload a file first', 'error');
+                    return;
+                }
+                
+                if (isOptimized) {
+                    showNotification('Content is already optimized', 'error');
+                    return;
+                }
+                
+                // Show AI processing overlay
+                aiOverlays.forEach(overlay => {
+                    overlay.style.display = 'flex';
+                });
+                
                 showNotification('Applying AI optimization to your content...', 'processing');
                 
                 // Simulate AI processing
                 setTimeout(() => {
-                    showNotification('AI optimization complete!', 'success');
-                    
-                    // Simulate visual changes
-                    document.querySelectorAll('.preview-image').forEach(img => {
-                        img.style.filter = 'brightness(1.1) contrast(1.1) saturate(1.2)';
-                        img.style.borderRadius = '0';
+                    // Hide AI overlay
+                    aiOverlays.forEach(overlay => {
+                        overlay.style.display = 'none';
                     });
+                    
+                    // Apply visual enhancements
+                    document.querySelectorAll('.preview-image').forEach(img => {
+                        img.classList.add('optimized');
+                    });
+                    
+                    showNotification('AI optimization complete! Content enhanced for all platforms', 'success');
+                    isOptimized = true;
+                    
+                    // Add AI badge to preview cards
+                    document.querySelectorAll('.preview-header').forEach(header => {
+                        const aiBadge = document.createElement('div');
+                        aiBadge.innerHTML = '<span style="background: #7209b7; color: white; padding: 3px 8px; border-radius: 20px; font-size: 0.8rem; margin-left: 10px;">AI Enhanced</span>';
+                        header.appendChild(aiBadge);
+                    });
+                    
                 }, 3000);
             });
             
-            // FIXED: Download functionality
+            // Download functionality
             downloadBtn.addEventListener('click', () => {
                 if (!uploadedFile) {
                     showNotification('Please upload a file first', 'error');
