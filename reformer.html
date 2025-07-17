@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reformatee - AI-Powered Content Reformatter</title>
+    <title>Reformatee - AI-Powered Content Reformatter | Social Media Format Tool</title>
+    <meta name="description" content="Reformat your content for Instagram, Facebook, Twitter & LinkedIn with AI. Preserve quality without cropping. Free online social media content reformatter.">
+    <meta name="keywords" content="social media reformatter, content reformatter, AI content tool, Instagram format, Facebook format, Twitter format, LinkedIn format, no crop tool">
+    <meta name="author" content="Reformatee">
+    <link rel="canonical" href="https://reformatee.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -404,10 +408,11 @@
         .preview-media {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Changed to contain to prevent cropping */
             display: none;
             border-radius: 5px;
             transition: all 1s ease;
+            background: #fff; /* Background for letterboxing */
         }
         
         .optimized {
@@ -468,7 +473,7 @@
             background: rgba(67, 97, 238, 0.1);
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: content;
             margin: 0 auto 20px;
             font-size: 30px;
             color: var(--primary);
@@ -744,6 +749,180 @@
             color: var(--gray);
         }
         
+        /* Conversion controls */
+        .conversion-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .quality-slider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .quality-label {
+            min-width: 100px;
+            font-weight: 500;
+        }
+        
+        .conversion-progress {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .conversion-progress-bar {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .conversion-status {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .conversion-error {
+            color: var(--danger);
+            display: none;
+            margin-top: 10px;
+        }
+        
+        /* Ads */
+        .ad-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 20px;
+            border: 1px solid var(--border);
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .ad-content {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .ad-content i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-right: 15px;
+        }
+        
+        .ad-text {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        /* Separate download buttons */
+        .download-format-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .format-download-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .format-download-btn:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
+        }
+        
+        .format-download-btn i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .format-download-btn .format-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .format-download-btn .format-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        /* Platform download buttons */
+        .platform-download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        
+        .platform-download-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        .platform-download-btn.instagram {
+            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+        }
+        
+        .platform-download-btn.facebook {
+            background: #1877f2;
+        }
+        
+        .platform-download-btn.twitter {
+            background: #1da1f2;
+        }
+        
+        .platform-download-btn.linkedin {
+            background: #0a66c2;
+        }
+        
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -806,6 +985,10 @@
             .btn {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .download-format-grid {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -966,6 +1149,9 @@
                                 </div>
                             </div>
                         </div>
+                        <button class="platform-download-btn instagram" id="downloadInstagramBtn">
+                            <i class="fas fa-download"></i> Download Instagram Format
+                        </button>
                     </div>
                     
                     <div class="preview-card" data-platform="facebook">
@@ -995,6 +1181,9 @@
                                 </div>
                             </div>
                         </div>
+                        <button class="platform-download-btn facebook" id="downloadFacebookBtn">
+                            <i class="fas fa-download"></i> Download Facebook Format
+                        </button>
                     </div>
                     
                     <div class="preview-card" data-platform="twitter">
@@ -1024,6 +1213,9 @@
                                 </div>
                             </div>
                         </div>
+                        <button class="platform-download-btn twitter" id="downloadTwitterBtn">
+                            <i class="fas fa-download"></i> Download Twitter Format
+                        </button>
                     </div>
                     
                     <div class="preview-card" data-platform="linkedin">
@@ -1053,6 +1245,9 @@
                                 </div>
                             </div>
                         </div>
+                        <button class="platform-download-btn linkedin" id="downloadLinkedInBtn">
+                            <i class="fas fa-download"></i> Download LinkedIn Format
+                        </button>
                     </div>
                 </div>
                 
@@ -1060,11 +1255,11 @@
                     <button class="btn btn-secondary" id="optimizeBtn">
                         <i class="fas fa-magic"></i> Optimize with AI
                     </button>
-                    <button class="btn" id="downloadBtn">
-                        <i class="fas fa-download"></i> Download All
+                    <button class="btn" id="downloadAllBtn">
+                        <i class="fas fa-download"></i> Download All Formats
                     </button>
                     <button class="btn btn-outline" id="manualDownloadBtn">
-                        <i class="fas fa-cog"></i> Manual Download Options
+                        <i class="fas fa-cog"></i> Advanced Options
                     </button>
                 </div>
             </div>
@@ -1135,7 +1330,7 @@
         </div>
     </div>
     
-    <!-- Manual Download Modal -->
+    <!-- Download Formats Modal -->
     <div class="modal" id="downloadModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1143,37 +1338,65 @@
                 <button class="close-modal" id="closeModal">&times;</button>
             </div>
             
-            <div class="format-selector">
-                <div class="format-option selected" data-format="jpg">
+            <div class="download-format-grid">
+                <div class="format-download-btn" data-format="jpg">
                     <i class="fas fa-file-image"></i>
-                    <span>JPG</span>
+                    <div class="format-name">JPG</div>
+                    <div class="format-desc">High Quality Image</div>
                 </div>
-                <div class="format-option" data-format="png">
+                
+                <div class="format-download-btn" data-format="png">
                     <i class="fas fa-file-image"></i>
-                    <span>PNG</span>
+                    <div class="format-name">PNG</div>
+                    <div class="format-desc">Transparent Background</div>
                 </div>
-                <div class="format-option" data-format="mp4">
+                
+                <div class="format-download-btn" data-format="mp4">
                     <i class="fas fa-file-video"></i>
-                    <span>MP4</span>
+                    <div class="format-name">MP4</div>
+                    <div class="format-desc">Standard Video</div>
                 </div>
-                <div class="format-option" data-format="hd">
+                
+                <div class="format-download-btn" data-format="hd">
                     <i class="fas fa-hd"></i>
-                    <span>HD</span>
+                    <div class="format-name">HD</div>
+                    <div class="format-desc">1280x720 Resolution</div>
                 </div>
-                <div class="format-option" data-format="fullhd">
+                
+                <div class="format-download-btn" data-format="fullhd">
                     <i class="fas fa-tv"></i>
-                    <span>Full HD</span>
+                    <div class="format-name">Full HD</div>
+                    <div class="format-desc">1920x1080 Resolution</div>
                 </div>
-                <div class="format-option" data-format="original">
+                
+                <div class="format-download-btn" data-format="original">
                     <i class="fas fa-file"></i>
-                    <span>Original</span>
+                    <div class="format-name">Original</div>
+                    <div class="format-desc">Unmodified File</div>
+                </div>
+            </div>
+            
+            <div class="conversion-controls">
+                <div class="quality-slider">
+                    <span class="quality-label">Video Quality:</span>
+                    <input type="range" id="qualitySlider" min="0.1" max="1" step="0.1" value="0.7">
+                    <span id="qualityValue">70%</span>
+                </div>
+                
+                <div class="conversion-progress" id="conversionProgress">
+                    <div class="conversion-progress-bar" id="conversionBar"></div>
+                </div>
+                
+                <div class="conversion-status" id="conversionStatus">
+                    Converting video to selected format...
+                </div>
+                
+                <div class="conversion-error" id="conversionError">
+                    Error during conversion. Please try again.
                 </div>
             </div>
             
             <div class="download-actions">
-                <button class="download-btn" id="downloadSingleBtn">
-                    <i class="fas fa-download"></i> Download Single
-                </button>
                 <button class="download-btn secondary" id="downloadAllFormatsBtn">
                     <i class="fas fa-file-archive"></i> Download All Formats
                 </button>
@@ -1194,6 +1417,7 @@
     <footer>
         <p>&copy; 2023 Reformatee. All rights reserved. | Designed for social media managers, influencers, and businesses</p>
         <p style="margin-top: 10px; font-size: 0.9rem;"><i class="fas fa-envelope"></i> contact@reformatee.com | <i class="fas fa-phone"></i> +1 (800) 123-4567</p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">SEO Keywords: social media reformatter, content reformatter, AI content tool, Instagram format, Facebook format, Twitter format, LinkedIn format, no crop tool</p>
     </footer>
     
     <script>
@@ -1229,21 +1453,38 @@
                 linkedin: document.getElementById('linkedinOverlay')
             };
             const optimizeBtn = document.getElementById('optimizeBtn');
-            const downloadBtn = document.getElementById('downloadBtn');
+            const downloadAllBtn = document.getElementById('downloadAllBtn');
             const manualDownloadBtn = document.getElementById('manualDownloadBtn');
             const notification = document.getElementById('notification');
             const notificationText = document.getElementById('notificationText');
             const progressBar = document.getElementById('progress');
             const downloadModal = document.getElementById('downloadModal');
             const closeModal = document.getElementById('closeModal');
-            const formatOptions = document.querySelectorAll('.format-option');
-            const downloadSingleBtn = document.getElementById('downloadSingleBtn');
+            const formatDownloadBtns = document.querySelectorAll('.format-download-btn');
             const downloadAllFormatsBtn = document.getElementById('downloadAllFormatsBtn');
+            
+            // Platform download buttons
+            const downloadInstagramBtn = document.getElementById('downloadInstagramBtn');
+            const downloadFacebookBtn = document.getElementById('downloadFacebookBtn');
+            const downloadTwitterBtn = document.getElementById('downloadTwitterBtn');
+            const downloadLinkedInBtn = document.getElementById('downloadLinkedInBtn');
+            
+            // Conversion elements
+            const qualitySlider = document.getElementById('qualitySlider');
+            const qualityValue = document.getElementById('qualityValue');
+            const conversionProgress = document.getElementById('conversionProgress');
+            const conversionBar = document.getElementById('conversionBar');
+            const conversionStatus = document.getElementById('conversionStatus');
+            const conversionError = document.getElementById('conversionError');
             
             let uploadedFile = null;
             let isImage = false;
             let isOptimized = false;
-            let selectedFormat = 'jpg';
+            
+            // Update quality slider value display
+            qualitySlider.addEventListener('input', () => {
+                qualityValue.textContent = `${Math.round(qualitySlider.value * 100)}%`;
+            });
             
             // Platform selection
             platforms.forEach(platform => {
@@ -1290,6 +1531,11 @@
             function handleFile(file) {
                 if (!file.type.match('image.*') && !file.type.match('video.*')) {
                     showNotification('Please upload an image or video file', 'error');
+                    return;
+                }
+                
+                if (file.size > 100 * 1024 * 1024) { // 100MB
+                    showNotification('File size exceeds 100MB limit', 'error');
                     return;
                 }
                 
@@ -1340,8 +1586,14 @@
                         
                         // Enable buttons
                         optimizeBtn.disabled = false;
-                        downloadBtn.disabled = false;
+                        downloadAllBtn.disabled = false;
                         manualDownloadBtn.disabled = false;
+                        
+                        // Enable platform download buttons
+                        downloadInstagramBtn.disabled = false;
+                        downloadFacebookBtn.disabled = false;
+                        downloadTwitterBtn.disabled = false;
+                        downloadLinkedInBtn.disabled = false;
                         
                         showNotification('Your content has been processed successfully!', 'success');
                     }
@@ -1455,7 +1707,7 @@
             });
 
             // Download all functionality
-            downloadBtn.addEventListener('click', () => {
+            downloadAllBtn.addEventListener('click', () => {
                 if (!uploadedFile) {
                     showNotification('Please upload a file first', 'error');
                     return;
@@ -1474,10 +1726,10 @@
                 
                 // Create simulated platform versions
                 const platforms = [
-                    { name: "Instagram_Reels", ext: "jpg" },
-                    { name: "Facebook_Feed", ext: "jpg" },
-                    { name: "Twitter", ext: "jpg" },
-                    { name: "LinkedIn", ext: "jpg" }
+                    { name: "Instagram_Reels", ext: isImage ? "jpg" : "mp4" },
+                    { name: "Facebook_Feed", ext: isImage ? "jpg" : "mp4" },
+                    { name: "Twitter", ext: isImage ? "jpg" : "mp4" },
+                    { name: "LinkedIn", ext: isImage ? "jpg" : "mp4" }
                 ];
                 
                 // Add simulated files to ZIP
@@ -1488,7 +1740,7 @@
                 });
                 
                 // Add a README file
-                folder.file("README.txt", "Your content has been formatted for multiple platforms by Reformatee!\n\nFiles:\n- Instagram_Reels.jpg: 9:16 aspect ratio\n- Facebook_Feed.jpg: 16:9 aspect ratio\n- Twitter.jpg: 16:9 aspect ratio\n- LinkedIn.jpg: 1:1 aspect ratio");
+                folder.file("README.txt", "Your content has been formatted for multiple platforms by Reformatee!\n\nFiles:\n- Instagram_Reels: 9:16 aspect ratio\n- Facebook_Feed: 16:9 aspect ratio\n- Twitter: 16:9 aspect ratio\n- LinkedIn: 1:1 aspect ratio");
                 
                 // Generate and download the ZIP file
                 zip.generateAsync({type:"blob"}).then(function(content) {
@@ -1496,6 +1748,41 @@
                     showNotification('Your download is ready!', 'success');
                 });
             });
+            
+            // Platform-specific download functions
+            downloadInstagramBtn.addEventListener('click', () => downloadPlatformFormat('instagram'));
+            downloadFacebookBtn.addEventListener('click', () => downloadPlatformFormat('facebook'));
+            downloadTwitterBtn.addEventListener('click', () => downloadPlatformFormat('twitter'));
+            downloadLinkedInBtn.addEventListener('click', () => downloadPlatformFormat('linkedin'));
+            
+            function downloadPlatformFormat(platform) {
+                if (!uploadedFile) {
+                    showNotification('Please upload a file first', 'error');
+                    return;
+                }
+                
+                showNotification(`Preparing ${platform} format...`, 'processing');
+                
+                // In a real app, this would be the actual converted file
+                // For demo, we'll create a simulated file
+                const extension = isImage ? 'jpg' : 'mp4';
+                const filename = `${platform}_formatted.${extension}`;
+                
+                // Create a blob from the original file for simulation
+                const blob = new Blob([uploadedFile], {type: uploadedFile.type});
+                const url = URL.createObjectURL(blob);
+                
+                // Create download link
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showNotification(`${platform} format downloaded!`, 'success');
+            }
             
             // Manual download modal
             manualDownloadBtn.addEventListener('click', () => {
@@ -1508,79 +1795,228 @@
             
             closeModal.addEventListener('click', () => {
                 downloadModal.style.display = 'none';
+                // Reset conversion UI
+                conversionBar.style.width = '0%';
+                conversionStatus.style.display = 'none';
+                conversionError.style.display = 'none';
+                conversionProgress.style.display = 'none';
             });
             
-            // Format selection
-            formatOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    formatOptions.forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                    selectedFormat = option.dataset.format;
-                });
-            });
-            
-            // Download single format
-            downloadSingleBtn.addEventListener('click', () => {
-                let filename = uploadedFile.name;
-                let extension = filename.split('.').pop();
-                let newFilename = filename.replace(`.${extension}`, `_${selectedFormat}.${selectedFormat}`);
-                
-                if (selectedFormat === 'original') {
-                    newFilename = filename;
-                } else if (selectedFormat === 'hd') {
-                    newFilename = filename.replace(`.${extension}`, '_HD.mp4');
-                } else if (selectedFormat === 'fullhd') {
-                    newFilename = filename.replace(`.${extension}`, '_FullHD.mp4');
-                }
-                
-                const url = URL.createObjectURL(uploadedFile);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = newFilename;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                
-                downloadModal.style.display = 'none';
-                showNotification(`Downloaded as ${newFilename}`, 'success');
-            });
-            
-            // Download all formats
-            downloadAllFormatsBtn.addEventListener('click', () => {
-                showNotification('Preparing all format downloads...', 'processing');
-                
-                const formats = ['jpg', 'png', 'mp4', 'hd', 'fullhd', 'original'];
-                const zip = new JSZip();
-                const folder = zip.folder("reformatee_formats");
-                
-                formats.forEach(format => {
-                    let filename = uploadedFile.name;
-                    let extension = filename.split('.').pop();
-                    let newFilename = filename.replace(`.${extension}`, `_${format}.${format}`);
-                    
-                    if (format === 'original') {
-                        newFilename = filename;
-                    } else if (format === 'hd') {
-                        newFilename = filename.replace(`.${extension}`, '_HD.mp4');
-                    } else if (format === 'fullhd') {
-                        newFilename = filename.replace(`.${extension}`, '_FullHD.mp4');
+            // Format download buttons
+            formatDownloadBtns.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    if (!uploadedFile) {
+                        showNotification('Please upload a file first', 'error');
+                        return;
                     }
                     
-                    folder.file(newFilename, uploadedFile);
+                    const format = btn.dataset.format;
+                    let blob = uploadedFile;
+                    let filename = uploadedFile.name;
+                    let extension = filename.split('.').pop();
+                    let newFilename;
+                    
+                    try {
+                        // For image formats
+                        if (format === 'jpg' || format === 'png') {
+                            if (!isImage) {
+                                throw new Error('Cannot convert video to image format');
+                            }
+                            
+                            // Create canvas to convert image
+                            const img = new Image();
+                            img.src = URL.createObjectURL(uploadedFile);
+                            await new Promise((resolve) => img.onload = resolve);
+                            
+                            const canvas = document.createElement('canvas');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0);
+                            
+                            // Convert to selected format
+                            if (format === 'jpg') {
+                                blob = await new Promise(resolve => 
+                                    canvas.toBlob(b => resolve(b), 'image/jpeg', qualitySlider.value)
+                                );
+                                newFilename = filename.replace(`.${extension}`, '.jpg');
+                            } else if (format === 'png') {
+                                blob = await new Promise(resolve => 
+                                    canvas.toBlob(b => resolve(b), 'image/png')
+                                );
+                                newFilename = filename.replace(`.${extension}`, '.png');
+                            }
+                        }
+                        // For video formats
+                        else if (format === 'mp4' || format === 'hd' || format === 'fullhd') {
+                            if (isImage) {
+                                throw new Error('Cannot convert image to video format');
+                            }
+                            
+                            // Show conversion UI
+                            conversionProgress.style.display = 'block';
+                            conversionStatus.style.display = 'block';
+                            conversionBar.style.width = '0%';
+                            conversionError.style.display = 'none';
+                            
+                            // Simulate conversion
+                            await simulateConversion();
+                            
+                            if (format === 'mp4') {
+                                newFilename = filename.replace(`.${extension}`, '.mp4');
+                            } else if (format === 'hd') {
+                                newFilename = filename.replace(`.${extension}`, '_HD.mp4');
+                            } else if (format === 'fullhd') {
+                                newFilename = filename.replace(`.${extension}`, '_FullHD.mp4');
+                            }
+                        }
+                        // Original format
+                        else if (format === 'original') {
+                            newFilename = filename;
+                        }
+                        
+                        // Create download link
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = newFilename;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                        
+                        downloadModal.style.display = 'none';
+                        showNotification(`Downloaded as ${newFilename}`, 'success');
+                    } catch (error) {
+                        console.error('Conversion error:', error);
+                        conversionError.textContent = error.message || 'Error during conversion. Please try again.';
+                        conversionError.style.display = 'block';
+                        conversionProgress.style.display = 'none';
+                        conversionStatus.style.display = 'none';
+                    }
                 });
+            });
+            
+            // Simulate conversion with progress
+            function simulateConversion() {
+                return new Promise(resolve => {
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += 5;
+                        conversionBar.style.width = `${progress}%`;
+                        
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            resolve();
+                        }
+                    }, 50);
+                });
+            }
+            
+            // Download all formats
+            downloadAllFormatsBtn.addEventListener('click', async () => {
+                if (!uploadedFile) {
+                    showNotification('Please upload a file first', 'error');
+                    return;
+                }
                 
-                zip.generateAsync({type:"blob"}).then(function(content) {
-                    saveAs(content, "all_formats.zip");
-                    downloadModal.style.display = 'none';
-                    showNotification('All formats downloaded successfully!', 'success');
-                });
+                try {
+                    showNotification('Preparing all format downloads...', 'processing');
+                    
+                    const formats = ['jpg', 'png', 'mp4', 'hd', 'fullhd', 'original'];
+                    const zip = new JSZip();
+                    const folder = zip.folder("reformatee_formats");
+                    
+                    // Create a progress indicator
+                    const progressPerFormat = 100 / formats.length;
+                    let currentProgress = 0;
+                    
+                    for (const format of formats) {
+                        let blob = uploadedFile;
+                        let filename = uploadedFile.name;
+                        let extension = filename.split('.').pop();
+                        let newFilename;
+                        
+                        try {
+                            // For image formats
+                            if (format === 'jpg' || format === 'png') {
+                                if (!isImage) continue; // Skip if not image
+                                
+                                // Create a canvas to convert the image
+                                const img = new Image();
+                                img.src = URL.createObjectURL(uploadedFile);
+                                await new Promise((resolve) => img.onload = resolve);
+                                
+                                const canvas = document.createElement('canvas');
+                                canvas.width = img.width;
+                                canvas.height = img.height;
+                                const ctx = canvas.getContext('2d');
+                                ctx.drawImage(img, 0, 0);
+                                
+                                if (format === 'jpg') {
+                                    blob = await new Promise(resolve => 
+                                        canvas.toBlob(b => resolve(b), 'image/jpeg', 0.8)
+                                    );
+                                    newFilename = filename.replace(`.${extension}`, '.jpg');
+                                } else if (format === 'png') {
+                                    blob = await new Promise(resolve => 
+                                        canvas.toBlob(b => resolve(b), 'image/png')
+                                    );
+                                    newFilename = filename.replace(`.${extension}`, '.png');
+                                }
+                            }
+                            // For video formats
+                            else if (format === 'mp4' || format === 'hd' || format === 'fullhd') {
+                                if (isImage) continue; // Skip if not video
+                                
+                                // Simulate conversion
+                                await simulateConversion();
+                                
+                                if (format === 'mp4') {
+                                    newFilename = filename.replace(`.${extension}`, '.mp4');
+                                } else if (format === 'hd') {
+                                    newFilename = filename.replace(`.${extension}`, '_HD.mp4');
+                                } else if (format === 'fullhd') {
+                                    newFilename = filename.replace(`.${extension}`, '_FullHD.mp4');
+                                }
+                            }
+                            // Original format
+                            else if (format === 'original') {
+                                newFilename = filename;
+                            }
+                            
+                            if (blob) {
+                                folder.file(newFilename, blob);
+                            }
+                        } catch (error) {
+                            console.error(`Error converting to ${format}:`, error);
+                        }
+                        
+                        // Update progress
+                        currentProgress += progressPerFormat;
+                        progressBar.style.width = `${currentProgress}%`;
+                    }
+                    
+                    // Generate and download ZIP
+                    zip.generateAsync({type:"blob"}).then(function(content) {
+                        saveAs(content, "all_formats.zip");
+                        downloadModal.style.display = 'none';
+                        showNotification('All formats downloaded successfully!', 'success');
+                    });
+                } catch (error) {
+                    console.error('Download all error:', error);
+                    showNotification('Error preparing all formats', 'error');
+                }
             });
             
             // Initialize with buttons disabled
             optimizeBtn.disabled = true;
-            downloadBtn.disabled = true;
+            downloadAllBtn.disabled = true;
             manualDownloadBtn.disabled = true;
+            downloadInstagramBtn.disabled = true;
+            downloadFacebookBtn.disabled = true;
+            downloadTwitterBtn.disabled = true;
+            downloadLinkedInBtn.disabled = true;
         });
     </script>
 </body>
