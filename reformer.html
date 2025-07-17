@@ -3,28 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reformatee - AI-Powered Social Media Content Reformer</title>
+    <title>Reformatee - AI-Powered Content Reformatter</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
     <style>
         :root {
             --primary: #4361ee;
             --primary-dark: #3a56d4;
             --secondary: #7209b7;
-            --light: #f8f9fa;
-            --dark: #212529;
             --success: #4cc9f0;
             --danger: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
             --gray: #6c757d;
             --border: #dee2e6;
-            --instagram: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            --facebook: #1877f2;
-            --twitter: #1da1f2;
-            --linkedin: #0a66c2;
-            --youtube: #ff0000;
-            --tiktok: #000000;
             --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             --glass-bg: rgba(255, 255, 255, 0.85);
         }
@@ -261,23 +254,6 @@
             box-shadow: 0 7px 20px rgba(114, 9, 183, 0.4);
         }
         
-        .ai-processing {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .ai-processing::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(114, 9, 183, 0.3);
-            z-index: 2;
-            animation: aiScan 3s linear infinite;
-        }
-        
         .platforms {
             display: flex;
             flex-wrap: wrap;
@@ -328,12 +304,10 @@
             font-size: 16px;
         }
         
-        .instagram-bg { background: var(--instagram); }
-        .facebook-bg { background: var(--facebook); }
-        .twitter-bg { background: var(--twitter); }
-        .linkedin-bg { background: var(--linkedin); }
-        .youtube-bg { background: var(--youtube); }
-        .tiktok-bg { background: var(--tiktok); }
+        .instagram-bg { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .facebook-bg { background: #1877f2; }
+        .twitter-bg { background: #1da1f2; }
+        .linkedin-bg { background: #0a66c2; }
         
         .platform-name {
             font-weight: 600;
@@ -422,14 +396,12 @@
             height: 100%;
         }
         
-        .instagram-preview { aspect-ratio: 9/16; } /* Reels */
-        .facebook-preview { aspect-ratio: 16/9; } /* Video */
-        .twitter-preview { aspect-ratio: 16/9; } /* Landscape */
-        .linkedin-preview { aspect-ratio: 1/1; } /* Square */
-        .youtube-preview { aspect-ratio: 16/9; } /* Standard */
-        .tiktok-preview { aspect-ratio: 9/16; } /* Vertical */
+        .instagram-preview { aspect-ratio: 9/16; }
+        .facebook-preview { aspect-ratio: 16/9; }
+        .twitter-preview { aspect-ratio: 16/9; }
+        .linkedin-preview { aspect-ratio: 1/1; }
         
-        .preview-image {
+        .preview-media {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -458,7 +430,6 @@
             font-size: 1.5rem;
             font-weight: bold;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            animation: aiPulse 1.5s infinite;
         }
         
         .actions {
@@ -666,147 +637,111 @@
             transition: width 0.3s ease;
         }
         
-        /* New AI progress bar styles */
-        .ai-progress-container {
-            width: 80%;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            margin: 20px auto;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .ai-progress-bar {
-            height: 8px;
-            background: linear-gradient(90deg, #3a0ca3, #4361ee, #4cc9f0);
-            width: 0%;
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-        
-        .ai-steps {
+        /* Format selection */
+        .format-selector {
             display: flex;
-            justify-content: space-between;
-            width: 80%;
-            margin: 10px auto;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.8);
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            justify-content: center;
         }
         
-        .ai-step {
-            position: relative;
-            text-align: center;
-            flex: 1;
-        }
-        
-        .ai-step.active {
-            color: white;
-            font-weight: bold;
-        }
-        
-        .ai-step:not(:last-child):after {
-            content: '';
-            position: absolute;
-            top: 5px;
-            right: -50%;
-            width: 100%;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .ai-overlay-content {
-            text-align: center;
-            padding: 20px;
-            z-index: 3;
-        }
-        
-        .ai-overlay-content i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            animation: aiPulseIcon 1.5s infinite;
-        }
-        
-        .ai-captions {
-            display: none;
-            background: rgba(255, 255, 255, 0.9);
+        .format-option {
+            background: white;
+            border: 2px solid var(--border);
             border-radius: 10px;
-            padding: 20px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100px;
+        }
+        
+        .format-option.selected {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        .format-option i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .download-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
             margin-top: 20px;
-            text-align: left;
-            max-height: 150px;
+        }
+        
+        .download-btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        .download-btn.secondary {
+            background: var(--secondary);
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
             overflow-y: auto;
         }
         
-        .ai-captions h4 {
-            margin-bottom: 10px;
-            color: var(--secondary);
-        }
-        
-        .caption-item {
-            padding: 8px 12px;
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            border-left: 3px solid var(--primary);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .caption-item:hover {
-            transform: translateX(5px);
-            background: #f0f5ff;
-        }
-        
-        .caption-item i {
-            color: var(--primary);
-            margin-right: 8px;
-            font-size: 1rem;
-            animation: none;
-        }
-        
-        .ai-enhanced-badge {
-            background: linear-gradient(45deg, #3a0ca3, #7209b7);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        /* AdSense container */
-        .ad-container {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 30px auto;
-            max-width: 728px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .ad-label {
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .ad-unit {
-            background: #f8f9fa;
-            border: 1px dashed #dee2e6;
-            border-radius: 8px;
-            height: 90px;
+        .modal-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
             color: var(--gray);
-            font-weight: 500;
         }
         
         /* Animations */
@@ -830,43 +765,6 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
-        }
-        
-        @keyframes aiScan {
-            0% { 
-                background: rgba(114, 9, 183, 0.1);
-                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-            }
-            50% { 
-                background: rgba(114, 9, 183, 0.3);
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            }
-            100% { 
-                background: rgba(114, 9, 183, 0.1);
-                clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
-            }
-        }
-        
-        @keyframes aiPulse {
-            0% { background: rgba(114, 9, 183, 0.3); }
-            50% { background: rgba(114, 9, 183, 0.5); }
-            100% { background: rgba(114, 9, 183, 0.3); }
-        }
-        
-        @keyframes aiPulseIcon {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
-        }
-        
-        @keyframes aiProcessingGlow {
-            0% { box-shadow: 0 0 5px rgba(67, 97, 238, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(114, 9, 183, 0.8); }
-            100% { box-shadow: 0 0 5px rgba(67, 97, 238, 0.5); }
-        }
-        
-        .ai-processing-glow {
-            animation: aiProcessingGlow 2s infinite;
         }
         
         .pulse {
@@ -961,14 +859,6 @@
             </div>
         </header>
         
-        <!-- AdSense Unit -->
-        <div class="ad-container">
-            <div class="ad-label">Advertisement</div>
-            <div class="ad-unit">
-                AdSense Ad - Leaderboard
-            </div>
-        </div>
-        
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-upload"></i> Upload Your Content
@@ -1049,15 +939,12 @@
                 </div>
                 
                 <div class="preview-container">
-                    <div class="preview-card">
+                    <div class="preview-card" data-platform="instagram">
                         <div class="preview-header">
                             <div class="platform-icon instagram-bg">
                                 <i class="fab fa-instagram"></i>
                             </div>
                             Instagram Reels (9:16)
-                            <span class="ai-enhanced-badge" id="instagramBadge" style="display: none;">
-                                <i class="fas fa-robot"></i> AI Enhanced
-                            </span>
                         </div>
                         <div class="preview-content">
                             <div class="aspect-ratio instagram-preview">
@@ -1065,28 +952,15 @@
                                     <i class="fas fa-mobile-alt"></i>
                                     <div>Upload content to see Instagram preview</div>
                                 </div>
-                                <img src="" alt="Instagram Preview" class="preview-image" id="instagramPreview">
+                                <img src="" alt="Instagram Preview" class="preview-media" id="instagramPreview">
+                                <video class="preview-media" id="instagramVideo" controls style="display:none"></video>
                                 <div class="ai-overlay" id="instagramOverlay">
-                                    <div class="ai-overlay-content">
-                                        <i class="fas fa-robot"></i>
+                                    <div style="text-align: center; padding: 20px;">
+                                        <i class="fas fa-robot fa-2x"></i>
                                         <h3>AI Optimizing for Instagram</h3>
-                                        
-                                        <div class="ai-progress-container">
-                                            <div class="ai-progress-bar" id="instagramProgress"></div>
-                                        </div>
-                                        
-                                        <div class="ai-steps">
-                                            <div class="ai-step" id="instagramStep1">Analyzing</div>
-                                            <div class="ai-step" id="instagramStep2">Enhancing</div>
-                                            <div class="ai-step" id="instagramStep3">Resizing</div>
-                                            <div class="ai-step" id="instagramStep4">Finalizing</div>
-                                        </div>
-                                        
-                                        <div class="ai-captions" id="instagramCaptions">
-                                            <h4>AI-Generated Captions:</h4>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> Check out this amazing transformation! ✨ Which version do you like better? #Transformation #BeforeAfter</div>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> The magic of AI optimization! 😍 Our tech just made this content perfect for Instagram. #AI #TechMagic</div>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> Swipe to see the original vs optimized version! ➡️ Which one gets your vote? #ContentCreation #SocialMediaTips</div>
+                                        <p>Processing your content...</p>
+                                        <div class="progress-bar">
+                                            <div class="progress" id="instagramProgress"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1094,15 +968,12 @@
                         </div>
                     </div>
                     
-                    <div class="preview-card">
+                    <div class="preview-card" data-platform="facebook">
                         <div class="preview-header">
                             <div class="platform-icon facebook-bg">
                                 <i class="fab fa-facebook-f"></i>
                             </div>
                             Facebook Feed (16:9)
-                            <span class="ai-enhanced-badge" id="facebookBadge" style="display: none;">
-                                <i class="fas fa-robot"></i> AI Enhanced
-                            </span>
                         </div>
                         <div class="preview-content">
                             <div class="aspect-ratio facebook-preview">
@@ -1110,28 +981,15 @@
                                     <i class="fas fa-desktop"></i>
                                     <div>Upload content to see Facebook preview</div>
                                 </div>
-                                <img src="" alt="Facebook Preview" class="preview-image" id="facebookPreview">
+                                <img src="" alt="Facebook Preview" class="preview-media" id="facebookPreview">
+                                <video class="preview-media" id="facebookVideo" controls style="display:none"></video>
                                 <div class="ai-overlay" id="facebookOverlay">
-                                    <div class="ai-overlay-content">
-                                        <i class="fas fa-robot"></i>
+                                    <div style="text-align: center; padding: 20px;">
+                                        <i class="fas fa-robot fa-2x"></i>
                                         <h3>AI Optimizing for Facebook</h3>
-                                        
-                                        <div class="ai-progress-container">
-                                            <div class="ai-progress-bar" id="facebookProgress"></div>
-                                        </div>
-                                        
-                                        <div class="ai-steps">
-                                            <div class="ai-step" id="facebookStep1">Analyzing</div>
-                                            <div class="ai-step" id="facebookStep2">Enhancing</div>
-                                            <div class="ai-step" id="facebookStep3">Resizing</div>
-                                            <div class="ai-step" id="facebookStep4">Finalizing</div>
-                                        </div>
-                                        
-                                        <div class="ai-captions" id="facebookCaptions">
-                                            <h4>AI-Generated Captions:</h4>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> Excited to share this new content with our Facebook community! What do you think? #FacebookPost #CommunityEngagement</div>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> Just optimized this content using AI technology - the results are amazing! #AI #ContentOptimization</div>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> Which version do you prefer? Original or AI-enhanced? Share your thoughts below! #SocialMedia #ContentCreation</div>
+                                        <p>Processing your content...</p>
+                                        <div class="progress-bar">
+                                            <div class="progress" id="facebookProgress"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1139,15 +997,12 @@
                         </div>
                     </div>
                     
-                    <div class="preview-card">
+                    <div class="preview-card" data-platform="twitter">
                         <div class="preview-header">
                             <div class="platform-icon twitter-bg">
                                 <i class="fab fa-twitter"></i>
                             </div>
                             Twitter (16:9)
-                            <span class="ai-enhanced-badge" id="twitterBadge" style="display: none;">
-                                <i class="fas fa-robot"></i> AI Enhanced
-                            </span>
                         </div>
                         <div class="preview-content">
                             <div class="aspect-ratio twitter-preview">
@@ -1155,28 +1010,15 @@
                                     <i class="fas fa-desktop"></i>
                                     <div>Upload content to see Twitter preview</div>
                                 </div>
-                                <img src="" alt="Twitter Preview" class="preview-image" id="twitterPreview">
+                                <img src="" alt="Twitter Preview" class="preview-media" id="twitterPreview">
+                                <video class="preview-media" id="twitterVideo" controls style="display:none"></video>
                                 <div class="ai-overlay" id="twitterOverlay">
-                                    <div class="ai-overlay-content">
-                                        <i class="fas fa-robot"></i>
+                                    <div style="text-align: center; padding: 20px;">
+                                        <i class="fas fa-robot fa-2x"></i>
                                         <h3>AI Optimizing for Twitter</h3>
-                                        
-                                        <div class="ai-progress-container">
-                                            <div class="ai-progress-bar" id="twitterProgress"></div>
-                                        </div>
-                                        
-                                        <div class="ai-steps">
-                                            <div class="ai-step" id="twitterStep1">Analyzing</div>
-                                            <div class="ai-step" id="twitterStep2">Enhancing</div>
-                                            <div class="ai-step" id="twitterStep3">Resizing</div>
-                                            <div class="ai-step" id="twitterStep4">Finalizing</div>
-                                        </div>
-                                        
-                                        <div class="ai-captions" id="twitterCaptions">
-                                            <h4>AI-Generated Captions:</h4>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> Just optimized this content for Twitter! Thoughts? #TwitterPost #ContentOptimization</div>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> AI technology is changing how we create content. What do you think of this enhancement? #AI #SocialMedia</div>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> Quick poll: Which version do you like better? Original or AI-enhanced? #TwitterPoll #ContentCreation</div>
+                                        <p>Processing your content...</p>
+                                        <div class="progress-bar">
+                                            <div class="progress" id="twitterProgress"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1184,15 +1026,12 @@
                         </div>
                     </div>
                     
-                    <div class="preview-card">
+                    <div class="preview-card" data-platform="linkedin">
                         <div class="preview-header">
                             <div class="platform-icon linkedin-bg">
                                 <i class="fab fa-linkedin-in"></i>
                             </div>
                             LinkedIn (1:1)
-                            <span class="ai-enhanced-badge" id="linkedinBadge" style="display: none;">
-                                <i class="fas fa-robot"></i> AI Enhanced
-                            </span>
                         </div>
                         <div class="preview-content">
                             <div class="aspect-ratio linkedin-preview">
@@ -1200,28 +1039,15 @@
                                     <i class="fas fa-square"></i>
                                     <div>Upload content to see LinkedIn preview</div>
                                 </div>
-                                <img src="" alt="LinkedIn Preview" class="preview-image" id="linkedinPreview">
+                                <img src="" alt="LinkedIn Preview" class="preview-media" id="linkedinPreview">
+                                <video class="preview-media" id="linkedinVideo" controls style="display:none"></video>
                                 <div class="ai-overlay" id="linkedinOverlay">
-                                    <div class="ai-overlay-content">
-                                        <i class="fas fa-robot"></i>
+                                    <div style="text-align: center; padding: 20px;">
+                                        <i class="fas fa-robot fa-2x"></i>
                                         <h3>AI Optimizing for LinkedIn</h3>
-                                        
-                                        <div class="ai-progress-container">
-                                            <div class="ai-progress-bar" id="linkedinProgress"></div>
-                                        </div>
-                                        
-                                        <div class="ai-steps">
-                                            <div class="ai-step" id="linkedinStep1">Analyzing</div>
-                                            <div class="ai-step" id="linkedinStep2">Enhancing</div>
-                                            <div class="ai-step" id="linkedinStep3">Resizing</div>
-                                            <div class="ai-step" id="linkedinStep4">Finalizing</div>
-                                        </div>
-                                        
-                                        <div class="ai-captions" id="linkedinCaptions">
-                                            <h4>AI-Generated Captions:</h4>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> Sharing this professionally enhanced content with my LinkedIn network. Thoughts? #ProfessionalContent #CareerGrowth</div>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> AI-powered content optimization for professional networks. What do you think of the results? #AI #ContentStrategy</div>
-                                            <div class="caption-item"><i class="fas fa-hashtag"></i> Which version resonates more with you? Original or AI-enhanced? #LinkedInPoll #ProfessionalDevelopment</div>
+                                        <p>Processing your content...</p>
+                                        <div class="progress-bar">
+                                            <div class="progress" id="linkedinProgress"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1231,23 +1057,16 @@
                 </div>
                 
                 <div class="actions">
-                    <button class="btn btn-secondary ai-processing-glow" id="optimizeBtn">
+                    <button class="btn btn-secondary" id="optimizeBtn">
                         <i class="fas fa-magic"></i> Optimize with AI
                     </button>
                     <button class="btn" id="downloadBtn">
                         <i class="fas fa-download"></i> Download All
                     </button>
-                    <button class="btn btn-outline" id="publishBtn">
-                        <i class="fas fa-share-alt"></i> Publish to Platforms
+                    <button class="btn btn-outline" id="manualDownloadBtn">
+                        <i class="fas fa-cog"></i> Manual Download Options
                     </button>
                 </div>
-            </div>
-        </div>
-        
-        <div class="ad-container">
-            <div class="ad-label">Advertisement</div>
-            <div class="ad-unit">
-                AdSense Ad - Medium Rectangle
             </div>
         </div>
         
@@ -1316,6 +1135,52 @@
         </div>
     </div>
     
+    <!-- Manual Download Modal -->
+    <div class="modal" id="downloadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Download Options</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            
+            <div class="format-selector">
+                <div class="format-option selected" data-format="jpg">
+                    <i class="fas fa-file-image"></i>
+                    <span>JPG</span>
+                </div>
+                <div class="format-option" data-format="png">
+                    <i class="fas fa-file-image"></i>
+                    <span>PNG</span>
+                </div>
+                <div class="format-option" data-format="mp4">
+                    <i class="fas fa-file-video"></i>
+                    <span>MP4</span>
+                </div>
+                <div class="format-option" data-format="hd">
+                    <i class="fas fa-hd"></i>
+                    <span>HD</span>
+                </div>
+                <div class="format-option" data-format="fullhd">
+                    <i class="fas fa-tv"></i>
+                    <span>Full HD</span>
+                </div>
+                <div class="format-option" data-format="original">
+                    <i class="fas fa-file"></i>
+                    <span>Original</span>
+                </div>
+            </div>
+            
+            <div class="download-actions">
+                <button class="download-btn" id="downloadSingleBtn">
+                    <i class="fas fa-download"></i> Download Single
+                </button>
+                <button class="download-btn secondary" id="downloadAllFormatsBtn">
+                    <i class="fas fa-file-archive"></i> Download All Formats
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <div class="notification" id="notification">
         <i class="fas fa-check-circle"></i>
         <div>
@@ -1345,6 +1210,12 @@
                 twitter: document.getElementById('twitterPreview'),
                 linkedin: document.getElementById('linkedinPreview')
             };
+            const videos = {
+                instagram: document.getElementById('instagramVideo'),
+                facebook: document.getElementById('facebookVideo'),
+                twitter: document.getElementById('twitterVideo'),
+                linkedin: document.getElementById('linkedinVideo')
+            };
             const placeholders = {
                 instagram: document.getElementById('instagramPlaceholder'),
                 facebook: document.getElementById('facebookPlaceholder'),
@@ -1357,33 +1228,22 @@
                 twitter: document.getElementById('twitterOverlay'),
                 linkedin: document.getElementById('linkedinOverlay')
             };
-            const aiBadges = {
-                instagram: document.getElementById('instagramBadge'),
-                facebook: document.getElementById('facebookBadge'),
-                twitter: document.getElementById('twitterBadge'),
-                linkedin: document.getElementById('linkedinBadge')
-            };
-            const aiProgressBars = {
-                instagram: document.getElementById('instagramProgress'),
-                facebook: document.getElementById('facebookProgress'),
-                twitter: document.getElementById('twitterProgress'),
-                linkedin: document.getElementById('linkedinProgress')
-            };
-            const aiCaptions = {
-                instagram: document.getElementById('instagramCaptions'),
-                facebook: document.getElementById('facebookCaptions'),
-                twitter: document.getElementById('twitterCaptions'),
-                linkedin: document.getElementById('linkedinCaptions')
-            };
             const optimizeBtn = document.getElementById('optimizeBtn');
             const downloadBtn = document.getElementById('downloadBtn');
-            const publishBtn = document.getElementById('publishBtn');
+            const manualDownloadBtn = document.getElementById('manualDownloadBtn');
             const notification = document.getElementById('notification');
             const notificationText = document.getElementById('notificationText');
             const progressBar = document.getElementById('progress');
+            const downloadModal = document.getElementById('downloadModal');
+            const closeModal = document.getElementById('closeModal');
+            const formatOptions = document.querySelectorAll('.format-option');
+            const downloadSingleBtn = document.getElementById('downloadSingleBtn');
+            const downloadAllFormatsBtn = document.getElementById('downloadAllFormatsBtn');
             
             let uploadedFile = null;
+            let isImage = false;
             let isOptimized = false;
+            let selectedFormat = 'jpg';
             
             // Platform selection
             platforms.forEach(platform => {
@@ -1434,16 +1294,15 @@
                 }
                 
                 uploadedFile = file;
+                isImage = file.type.match('image.*');
                 isOptimized = false;
                 
                 // Reset all previews
                 for (const key in previews) {
                     previews[key].style.display = 'none';
+                    videos[key].style.display = 'none';
                     placeholders[key].style.display = 'flex';
-                    aiBadges[key].style.display = 'none';
-                    aiCaptions[key].style.display = 'none';
                     aiOverlays[key].style.display = 'none';
-                    aiProgressBars[key].style.width = '0%';
                 }
                 
                 // Show file name
@@ -1467,10 +1326,14 @@
                         for (const key in previews) {
                             const reader = new FileReader();
                             reader.onload = function(e) {
-                                previews[key].src = e.target.result;
-                                previews[key].style.display = 'block';
+                                if (isImage) {
+                                    previews[key].src = e.target.result;
+                                    previews[key].style.display = 'block';
+                                } else {
+                                    videos[key].src = e.target.result;
+                                    videos[key].style.display = 'block';
+                                }
                                 placeholders[key].style.display = 'none';
-                                previews[key].classList.remove('optimized');
                             }
                             reader.readAsDataURL(file);
                         }
@@ -1478,7 +1341,7 @@
                         // Enable buttons
                         optimizeBtn.disabled = false;
                         downloadBtn.disabled = false;
-                        publishBtn.disabled = false;
+                        manualDownloadBtn.disabled = false;
                         
                         showNotification('Your content has been processed successfully!', 'success');
                     }
@@ -1536,14 +1399,7 @@
                 }, 5000);
             }
             
-            // AI Optimization Steps
-            const aiSteps = [
-                "Analyzing content...",
-                "Enhancing visual quality...",
-                "Adjusting for platform specs...",
-                "Applying final touches..."
-            ];
-
+            // AI Optimization
             optimizeBtn.addEventListener('click', () => {
                 if (!uploadedFile) {
                     showNotification('Please upload a file first', 'error');
@@ -1558,51 +1414,21 @@
                 // Show AI processing overlay on all previews
                 for (const key in aiOverlays) {
                     aiOverlays[key].style.display = 'flex';
-                    aiCaptions[key].style.display = 'none';
                 }
 
                 showNotification('Starting AI optimization process...', 'processing');
                 
-                // Reset all badges
-                for (const key in aiBadges) {
-                    aiBadges[key].style.display = 'none';
-                }
-                
-                // Reset step indicators
-                document.querySelectorAll('.ai-step').forEach(step => {
-                    step.classList.remove('active');
-                });
-
-                // Simulate detailed AI processing
+                // Simulate AI processing
                 let progress = 0;
-                let currentStep = 0;
-                
                 const processInterval = setInterval(() => {
-                    // Update progress
-                    progress += 5 + Math.floor(Math.random() * 10);
+                    progress += 5;
                     if (progress > 100) progress = 100;
                     
                     // Update all progress bars
-                    for (const key in aiProgressBars) {
-                        aiProgressBars[key].style.width = `${progress}%`;
-                    }
-                    
-                    // Update step every 25% progress
-                    if (progress >= (currentStep + 1) * 25 && currentStep < 3) {
-                        currentStep++;
-                        document.querySelectorAll('.ai-step').forEach((step, index) => {
-                            if (index < currentStep) {
-                                step.classList.add('active');
-                            }
-                        });
-                        
-                        showNotification(aiSteps[currentStep], 'processing');
-                    }
-                    
-                    // Show captions at 80% progress
-                    if (progress >= 80) {
-                        for (const key in aiCaptions) {
-                            aiCaptions[key].style.display = 'block';
+                    for (const key in aiOverlays) {
+                        const progressEl = aiOverlays[key].querySelector('.progress');
+                        if (progressEl) {
+                            progressEl.style.width = `${progress}%`;
                         }
                     }
                     
@@ -1617,23 +1443,18 @@
                         
                         // Apply visual enhancements
                         for (const key in previews) {
-                            previews[key].classList.add('optimized');
-                            previews[key].style.boxShadow = '0 0 15px rgba(114, 9, 183, 0.4)';
-                            previews[key].style.border = '3px solid #7209b7';
-                        }
-                        
-                        // Show AI enhanced badges
-                        for (const key in aiBadges) {
-                            aiBadges[key].style.display = 'inline-flex';
+                            if (isImage) {
+                                previews[key].classList.add('optimized');
+                            }
                         }
                         
                         showNotification('AI optimization complete! Content enhanced for all platforms', 'success');
                         isOptimized = true;
                     }
-                }, 300);
+                }, 100);
             });
 
-            // Download functionality
+            // Download all functionality
             downloadBtn.addEventListener('click', () => {
                 if (!uploadedFile) {
                     showNotification('Please upload a file first', 'error');
@@ -1676,19 +1497,90 @@
                 });
             });
             
-            publishBtn.addEventListener('click', () => {
-                showNotification('Connecting to social platforms...', 'processing');
+            // Manual download modal
+            manualDownloadBtn.addEventListener('click', () => {
+                if (!uploadedFile) {
+                    showNotification('Please upload a file first', 'error');
+                    return;
+                }
+                downloadModal.style.display = 'flex';
+            });
+            
+            closeModal.addEventListener('click', () => {
+                downloadModal.style.display = 'none';
+            });
+            
+            // Format selection
+            formatOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    formatOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedFormat = option.dataset.format;
+                });
+            });
+            
+            // Download single format
+            downloadSingleBtn.addEventListener('click', () => {
+                let filename = uploadedFile.name;
+                let extension = filename.split('.').pop();
+                let newFilename = filename.replace(`.${extension}`, `_${selectedFormat}.${selectedFormat}`);
                 
-                // Simulate publishing
-                setTimeout(() => {
-                    showNotification('Content published successfully!', 'success');
-                }, 2500);
+                if (selectedFormat === 'original') {
+                    newFilename = filename;
+                } else if (selectedFormat === 'hd') {
+                    newFilename = filename.replace(`.${extension}`, '_HD.mp4');
+                } else if (selectedFormat === 'fullhd') {
+                    newFilename = filename.replace(`.${extension}`, '_FullHD.mp4');
+                }
+                
+                const url = URL.createObjectURL(uploadedFile);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = newFilename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                downloadModal.style.display = 'none';
+                showNotification(`Downloaded as ${newFilename}`, 'success');
+            });
+            
+            // Download all formats
+            downloadAllFormatsBtn.addEventListener('click', () => {
+                showNotification('Preparing all format downloads...', 'processing');
+                
+                const formats = ['jpg', 'png', 'mp4', 'hd', 'fullhd', 'original'];
+                const zip = new JSZip();
+                const folder = zip.folder("reformatee_formats");
+                
+                formats.forEach(format => {
+                    let filename = uploadedFile.name;
+                    let extension = filename.split('.').pop();
+                    let newFilename = filename.replace(`.${extension}`, `_${format}.${format}`);
+                    
+                    if (format === 'original') {
+                        newFilename = filename;
+                    } else if (format === 'hd') {
+                        newFilename = filename.replace(`.${extension}`, '_HD.mp4');
+                    } else if (format === 'fullhd') {
+                        newFilename = filename.replace(`.${extension}`, '_FullHD.mp4');
+                    }
+                    
+                    folder.file(newFilename, uploadedFile);
+                });
+                
+                zip.generateAsync({type:"blob"}).then(function(content) {
+                    saveAs(content, "all_formats.zip");
+                    downloadModal.style.display = 'none';
+                    showNotification('All formats downloaded successfully!', 'success');
+                });
             });
             
             // Initialize with buttons disabled
             optimizeBtn.disabled = true;
             downloadBtn.disabled = true;
-            publishBtn.disabled = true;
+            manualDownloadBtn.disabled = true;
         });
     </script>
 </body>
